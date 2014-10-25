@@ -1,0 +1,35 @@
+{
+  "locals": {
+    "url": "http://localhost:8080",
+    "name": "Zombocom",
+    "owner": "Someone",
+    "description": "Anything is possible"
+  },
+  "plugins": [
+    "./plugins/page.coffee",
+    "./plugins/paginator.coffee",
+    "./plugins/markdown.coffee",
+    "wintersmith-livereload"
+
+  ],
+  "filenameTemplate": "/:year/:month/:title/index.html",
+  "require": {
+    "moment": "moment",
+    "_": "underscore",
+    "typogr": "typogr"
+  },
+  "jade": {
+    "pretty": true
+  },
+  "markdown": {
+    "smartLists": true,
+    "smartypants": true
+  },
+  "paginator": {
+    "perPage": 5
+  },
+  "tag": {
+      "template": "index.jade",
+      "perPage": 4
+  }
+}

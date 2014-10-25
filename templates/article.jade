@@ -1,0 +1,28 @@
+
+extends layout
+
+block append vars
+  - bodyclass = 'article-detail'
+
+block prepend title
+  | #{ page.title + " - "}
+
+block header
+  include author
+  include tags
+  h1= page.title
+  p.author
+    | #{ "Written by " }
+    mixin author(page.metadata.author)
+    p= page.metadata.categories
+    mixin tags(page.metadata.tags)
+
+block content
+  article.article
+    section.content!= typogr(page.html).chain().amp().widont().smartypants().caps().initQuotes().value()
+
+block prepend footer
+  div.nav
+    a(href=contents.index.url) « Full blog
+
+
