@@ -8,6 +8,7 @@
   "plugins": [
     "./plugins/page.coffee",
     "./plugins/paginator.coffee",
+    "./plugins/index.coffee",
     "./plugins/markdown.coffee",
     "wintersmith-livereload"
 
