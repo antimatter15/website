@@ -6,7 +6,7 @@ path = require 'path'
 url = require 'url'
 yaml = require 'js-yaml'
 
-hljs.configure {classPrefix: ''} # keep compatibility with old stylesheets (pre hljs 8.0.0)
+hljs.configure {classPrefix: 'hljs-'} # keep compatibility with old stylesheets (pre hljs 8.0.0)
 
 # monkeypatch to add url resolving to marked
 if not marked.InlineLexer.prototype._outputLink?
@@ -72,7 +72,6 @@ parseMarkdownSync = (content, markdown, baseUrl, options) ->
       'java'
       'javascript'
       'json'
-      'less'
       'lisp'
       'livescript'
       'lua'

@@ -145,7 +145,7 @@ module.exports = (env, callback) ->
     rv['last.page'] = pages[(numPages-1)] # alias for last page
 
     # console.time('crate tag pags')
-    for tag in Object.keys(tags)
+    for tag in Object.keys(tags) when tags[tag].length > 1
       # arts = getArticlesByTag articles, tag
       rv.pages["#{ tag }.tag"] = new TagPage tag, tags[tag]
     # console.timeEnd('crate tag pags')

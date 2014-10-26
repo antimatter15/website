@@ -10,8 +10,8 @@
     "./plugins/paginator.coffee",
     "./plugins/index.coffee",
     "./plugins/markdown.coffee",
-    "wintersmith-livereload"
-
+    "wintersmith-livereload",
+    "wintersmith-less"
   ],
   "filenameTemplate": "/:year/:month/:title/index.html",
   "require": {

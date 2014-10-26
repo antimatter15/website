@@ -8,6 +8,7 @@
     "slugg": "^0.1.2",
     "typogr": "0.5.x",
     "underscore": "1.4.x",
+    "wintersmith-less": "^0.2.3",
     "wintersmith-tag": "^1.0.2"
   },
   "repository": "none"
