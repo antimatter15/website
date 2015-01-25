@@ -1,12 +1,9 @@
-
 module.exports = (env, callback) ->
   ### Paginator plugin. Defaults can be overridden in config.json
       e.g. "paginator": {"perPage": 10} ###
 
   defaults =
     template: 'blog.jade' # template that renders pages
-    articles: 'articles' # directory containing contents to paginate
-    # first: 'index.html' # filename/url for first page
     filename: 'page/%d/index.html' # filename for rest of pages
     tagfilename: 'tag/%s/index.html'
     tagtemplate: 'blog.jade'
@@ -27,7 +24,7 @@ module.exports = (env, callback) ->
       articles.push(dir.index)
       dir._.directories.map(walk)
     # articles = []
-    walk(contents[options.articles])
+    walk(contents['articles'])
     # articles = contents[options.articles]._.directories.map (item) -> item.index
     # skip articles that does not have a template associated
     articles = articles.filter (item) -> item && item.template isnt 'none'

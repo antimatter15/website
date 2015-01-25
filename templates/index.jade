@@ -1,4 +1,119 @@
 extends layout
 
 block content
-  | test test test test
+  //- p= featured.title
+  //- hr
+  //- for article in articles
+  //-   p= article.title
+
+  .featured
+    h2= featured.title
+      span.subtitle latest half-decent blog post, I hope
+    .post
+
+      .text!= typogr(featured.intro).typogrify() 
+
+        //- pre= inspect(contents['projects.yaml'].metadata.projects)
+        
+      .pic
+        img(src="http://i.imgur.com/4Ur5pTl.jpg")
+        .caption
+          | Look, I'm pretty upset about how the Colbert Report ended too
+          | and there isn't really anything I can do about it, but here's
+          | some cute bears.
+
+  .splitter
+    hr
+    | posts
+  
+  .hand
+    each article in articles.filter(function(e){return e != featured}).slice(0, 6)
+      .thumb
+        h2= article.title.slice(0,15)
+        .caption= article.title
+        img(src="http://i.imgur.com/Bc0Zuq1.jpg")
+
+  .splitter
+    hr
+    | projects
+
+  .projects
+    
+    //- .project
+    //-   h2 New Technology
+    //-     span.caption hello world
+    //-   .cluster
+    //-     .major
+    //-       img(src="http://i.imgur.com/Mxyb5x5.jpg")
+    //-       .caption
+    //-         | this was a project of mine which i made two years before I was even born
+    //-         | I know that's like really impressive. Also, it won an honorable mention
+    //-         | in the international northern virginia spring caesarian infant premier
+    //-         | hackathon for its sheer brilliance. It was blogged about in every single
+    //-         | publication known to man except for the ones that print in human languages.
+    //-         | I have since worked on it for two entire lifespans, and I'm still actively
+    //-         | maintaining it as my life's work, because I strongly believe that my 
+    //-         | intelligence is decreasing, and thus the only things I should work on are
+    //-         | my oldest ideas.
+    //-     .subprojects
+    //-       .minor
+    //-         img(src="http://i.imgur.com/j9F2qIZ.jpg")
+    //-         .caption
+    //-           h2 Wumbology
+    //-           | The study of wumbo, you dipshit. It's fucking first grade, Spongebob.
+    //-       .minor
+    //-         img(src="http://i.imgur.com/Ngkcwid.jpg")
+    //-         .caption
+    //-           h2 Astral Projections
+    //-           | I don't know what to write about here, but I'm sure deepak chopra can elaborate at length
+    //-       .minor
+    //-         img(src="http://i.imgur.com/rXtJ7Dr.jpg")
+    //-         .caption
+    //-           h2 Stress
+    //-           | Learn everything and more about tensors and the ilk. Hopefully this is like long enough to fit the aesthetic paradigm.
+
+    each project in contents['projects.yaml'].metadata.projects
+      //- pre= inspect(project)
+      .project
+        h2= project.title
+          span.caption= project.sub
+        .cluster
+          if project.subprojects
+            .major
+              img(src="http://i.imgur.com/GzJp8PF.jpg")
+              .caption= project.caption
+            .subprojects
+              each subproject in project.subprojects
+                .minor
+                  img(src="http://i.imgur.com/rwd8s1N.jpg")
+                  .caption
+                    h2= subproject.title
+                    span= subproject.sub
+          else
+            .major
+              img(src="http://i.imgur.com/GzJp8PF.jpg")
+            .right
+              img(src="http://i.imgur.com/Bc0Zuq1.jpg")
+              img(src="http://i.imgur.com/1eLagFP.jpg")
+              img(src="http://i.imgur.com/gLd4DOL.jpg")
+              .caption= project.caption
+      
+    //- .project
+    //-   h2 Protobowl
+    //-     span.caption real time quizbowl has never been more bowl
+    //-   .cluster
+    //-     .major
+    //-       img(src="http://i.imgur.com/GzJp8PF.jpg")
+    //-     .right
+    //-       img(src="http://i.imgur.com/Bc0Zuq1.jpg")
+    //-       img(src="http://i.imgur.com/1eLagFP.jpg")
+    //-       img(src="http://i.imgur.com/gLd4DOL.jpg")
+
+    //-       .caption
+    //-         | The problem I have with the paparazzi is if they’re right in front of you and you’re like, 
+    //-         | “Can you please not take a picture of me?” And they’re like, “Dude I’m not really taking a picture,” 
+    //-         | and they just keep on doing it like they’re talking to me like I’m stupid and stuff, and then, with 
+    //-         | arm sprints, I’m going to grab the camera, that just happens, and you don’t expect that to happen 
+    //-         | with a celebrity, cause you think they’re like a museum animal and stuff, but it’s like, don’t shoot 
+    //-         | the animals, then, maybe, I don’t know.
+        

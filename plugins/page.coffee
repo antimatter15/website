@@ -111,7 +111,18 @@ module.exports = (env, callback) ->
       throw new Error 'Not implemented.'
 
     @property 'intro', 'getIntro'
-    getIntro: (base) -> @getHtml(base)
+    getIntro: (base) ->
+      html = @getHtml(base)
+      cutoffs = ['<span class="more', '<h2', '<hr']
+      idx = Infinity
+      for cutoff in cutoffs
+        i = html.indexOf cutoff
+        if i isnt -1 and i < idx
+          idx = i
+      if idx isnt Infinity
+        return html.substr 0, idx
+      else
+        return html
 
     @property 'filenameTemplate', 'getFilenameTemplate'
     getFilenameTemplate: ->

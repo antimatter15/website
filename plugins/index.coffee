@@ -1,3 +1,5 @@
+_ = require('lodash')
+
 module.exports = (env, callback) ->
   defaults =
     perPage: 2 # number of articles per page
@@ -40,10 +42,15 @@ module.exports = (env, callback) ->
       # get the pagination template
       template = templates['index.jade']
       if not template?
-        return callback new Error "unknown paginator template '#{ options.template }'"
+        return callback new Error "unknown index template '#{ options.template }'"
 
+      # console.log(@articles.map((x) -> x?.metadata?.featured))
       # setup the template context
-      ctx = {@articles}
+      ctx = {
+        @articles,
+        inspect: require('util').inspect,
+        featured: _.find(@articles, (x) -> x?.metadata?.featured)
+      }
 
       # extend the template context with the enviroment locals
       env.utils.extend ctx, locals

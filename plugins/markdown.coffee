@@ -200,9 +200,18 @@ module.exports = (env, callback) ->
         callback null, page
     ], callback
 
+
+  class YAMLDocument extends env.plugins.StaticFile
+    constructor: (@filepath, @metadata) -> console.log('constructing yaml doc')
+
+  YAMLDocument.fromFile = (filepath, callback) ->
+    fs.readFile filepath.full, (err, data) =>
+      callback null, new this(filepath, yaml.load(data))
+
   # register the plugins
   env.registerContentPlugin 'pages', '**/*.*(markdown|mkd|md)', MarkdownPage
   env.registerContentPlugin 'pages', '**/*.json', JsonPage
+  env.registerContentPlugin 'pages', '**/*.yaml', YAMLDocument
 
   # done!
   callback()

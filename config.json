@@ -1,17 +1,17 @@
 {
   "locals": {
     "url": "http://localhost:8080",
-    "name": "Zombocom",
+    "name": "stuff",
     "owner": "Someone",
-    "description": "Anything is possible"
+    "description": "somewhere to talk about ideas and projects and stuff like everyone else"
   },
   "plugins": [
     "./plugins/page.coffee",
     "./plugins/paginator.coffee",
     "./plugins/index.coffee",
     "./plugins/markdown.coffee",
-    "wintersmith-livereload",
-    "wintersmith-less"
+    "wintersmith-less",
+    "wintersmith-livereload"
   ],
   "filenameTemplate": "/:year/:month/:title/index.html",
   "require": {
