@@ -8,13 +8,11 @@ block content
 
   .featured
     h2= featured.title
+      | 
       span.subtitle latest half-decent blog post, I hope
     .post
 
-      .text!= typogr(featured.intro).typogrify() 
 
-        //- pre= inspect(contents['projects.yaml'].metadata.projects)
-        
       .pic
         img(src="http://i.imgur.com/4Ur5pTl.jpg")
         .caption
@@ -22,20 +20,29 @@ block content
           | and there isn't really anything I can do about it, but here's
           | some cute bears.
 
+      .text!= typogr(featured.intro).typogrify() 
+
+
   .splitter
     hr
-    | posts
+    a(href="/page/1") posts 
+    //- span(style="font-size: x-small; color: #999") &#9660;
   
   .hand
     each article in articles.filter(function(e){return e != featured}).slice(0, 6)
       .thumb
-        h2= article.title.slice(0,15)
-        .caption= article.title
+        .caption 
+          h2= article.metadata.short || article.title
+          .sub= article.title
         img(src="http://i.imgur.com/Bc0Zuq1.jpg")
 
-  .splitter
+    //- .thumb
+    //-     img(src="http://i.imgur.com/fSgnUKW.jpg", style="height: 100%")
+
+  .splitter(style="text-align:center")
     hr
-    | projects
+    | projects 
+    //- span(style="font-size: x-small; color: #999") &#9660;
 
   .projects
     
@@ -72,31 +79,45 @@ block content
     //-           h2 Stress
     //-           | Learn everything and more about tensors and the ilk. Hopefully this is like long enough to fit the aesthetic paradigm.
 
-    each project in contents['projects.yaml'].metadata.projects
+    each project in contents['projects.yaml'].projects
       //- pre= inspect(project)
       .project
-        h2= project.title
-          span.caption= project.sub
+        a(href=project.url)
+          h2= project.title
+            | 
+            span.caption= project.sub
         .cluster
           if project.subprojects
             .major
-              img(src="http://i.imgur.com/GzJp8PF.jpg")
-              .caption= project.caption
+              a(href=project.url)
+                if project.pic
+                  img(src=project.pic[0])
+                else
+                  img(src="http://i.imgur.com/GzJp8PF.jpg")
+              .caption!= project.caption
             .subprojects
               each subproject in project.subprojects
-                .minor
-                  img(src="http://i.imgur.com/rwd8s1N.jpg")
+                a.minor(href=subproject.url)
+                  if subproject.pic
+                    img(src=subproject.pic[0])
+                  else
+                    img(src="http://i.imgur.com/rwd8s1N.jpg")
                   .caption
                     h2= subproject.title
+                    | 
                     span= subproject.sub
           else
             .major
-              img(src="http://i.imgur.com/GzJp8PF.jpg")
+              if project.pic
+                img(src=project.pic[0])
+              else
+                img(src="http://i.imgur.com/GzJp8PF.jpg")
             .right
-              img(src="http://i.imgur.com/Bc0Zuq1.jpg")
-              img(src="http://i.imgur.com/1eLagFP.jpg")
-              img(src="http://i.imgur.com/gLd4DOL.jpg")
-              .caption= project.caption
+              if project.pic
+                img(src=project.pic[1])
+                img(src=project.pic[2])
+                img(src=project.pic[3])
+              .caption!= project.caption
       
     //- .project
     //-   h2 Protobowl
@@ -116,4 +137,7 @@ block content
     //-         | arm sprints, I’m going to grab the camera, that just happens, and you don’t expect that to happen 
     //-         | with a celebrity, cause you think they’re like a museum animal and stuff, but it’s like, don’t shoot 
     //-         | the animals, then, maybe, I don’t know.
-        
+  
+  //- p
+  //-   | For a full list of projects
+  

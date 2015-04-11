@@ -1,9 +1,9 @@
 mixin tags(tags)
   ul
-    each tag in tags
-      if env.helpers.isPopularTag(tag)
-        li(style="font-weight: bold")
-          a(href='/tag/'+tag)= tag
-      else
-        li= tag
-
+    if tags
+      each tag in tags
+        if env.helpers.isPopularTag(tag)
+          li(style="font-weight: bold")
+            a(href='/tag/'+tag)= tag
+        else
+          li= tag

@@ -9,17 +9,24 @@ html(lang='en')
       link(rel='alternate', href=locals.url+'/feed.xml', type='application/rss+xml', title=locals.description)
 
       //- link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300')
+      link(href='http://fonts.googleapis.com/css?family=Muli:300,400,300italic,400italic', rel='stylesheet', type='text/css')
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
       link(rel='stylesheet', href='/style/main.css')
+      <script src="//use.typekit.net/pqh5gly.js"></script>
+      <script>try{Typekit.load();}catch(e){}</script>
       | !{ livereloadScript }
 
   body
-    .graybar
+    .graybar.top
       header.top
         div.slogan
           | somewhere to talk about random ideas and projects like everyone else
-        h1.logo 
-          | stuff
-          span.byline by antimatter15
+        
+        a(href='/')
+          h1.logo 
+            | stuff
+            | 
+            span.byline by antimatter15
         //- div.content-wrap
         //-   block header
         //-     div.logo
@@ -29,42 +36,87 @@ html(lang='en')
         //-       p.description= locals.description
     
     //- hr
-    div#main
-      .sidebar
-        .about
-          p.emph
-            | Hi. I’m <b>Kevin Kwok</b>, and I’m currently a sophomore at <b>MIT</b>, 
-            | and this is my obligatory online presence or whatever.  
-          p
-            | I regularly updated this site from 2007, when I started it in elementary school, 
-            | to summer 2014, when it was unwittingly absorbed into an international phishing ring.
-          p
-            | But like a phoenix, hydra or the national deficit, the site is back 
-            | again bigger than ever (after a rather long gestation period).
-          p
-            | For more obnoxious autobiographical content to fill your heart’s content, 
-            | blended with bits of nostalgia for the old PHP-on-sketchy-free-webhosting days, click here.
-        hr
-        .about
-          h2 Archive
-        each year in '2015,2014,2013,2012,2011,2010,2009,2008,2007'.split(',')
-          each month in 'January,February,March,April,May,June,July,August,September,October,November,December'.split(',').reverse()
-            div
-              span.month= month
-              | 
-              span.year= year
-          br
+    .whitebox
+      div#main
+        .sidebar
+          .about
+            p.emph
+              | Hi. I’m <b>Kevin Kwok</b>, and I’m currently a sophomore at <b>MIT</b>, 
+              | and this is my obligatory online presence or whatever.  
+            p
+              | I regularly updated this site from 2007, when I started it in elementary school, 
+              | to summer 2014, when it was unwittingly absorbed into an international phishing ring.
+            p
+              | But like a phoenix, hydra or the national deficit, the site is back 
+              | again bigger than ever (after a rather long gestation period).
+            p
+              | For more obnoxious autobiographical content 
+              | blended with bits of nostalgia for the old PHP-on-sketchy-free-webhosting days, click here.
+          hr
+          
+          - var lineHeight = 2.2;
+          - var archives = _.chain(env.helpers.getArticles(contents)).groupBy(function(item) {
+          -    return item.date.getFullYear()
+          - }).value()
+          - for (var archive in archives) {
+          -   archives[archive] = _.groupBy(archives[archive], function(item){return item.date.getMonth();})
+          - }
+          - var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+          section.archive
+              h2 Archive
+              ul
+                  - var yearsK = _.chain(archives).keys().reverse().value()
+                  - for(var year in yearsK)
+                      - months = archives[yearsK[year]]
+                      - var yearHeight = lineHeight * _.reduce(months, function(memo,month) { return memo + month.length; }, 0);
+                      li
+                          //- span.year-label=yearsK[year]
+                          ul
+                              - var monthsK = _.chain(months).keys().reverse().value()
+                              - for(month in monthsK){
+                                  - var monthHeight = lineHeight * months[monthsK[month]].length
+                                  li
+                                    a(href="/" + yearsK[year] + "/" + ("0" + (1 + parseInt(monthsK[month]) )).slice(-2) )
+                                      //- span.month-label=month_names[monthsK[month]]
+                                      span.month= month_names[monthsK[month]]
+                                      | 
+                                      span.year= yearsK[year]
+                              - }
+                          br
 
-      #content
-        block content
+                              
+          .tags
+            h2 Tags
 
-    footer
-      | I'm a tiny footer, please don't squish me
-      //- div.content-wrap
-      //-   block footer
-      //-     section.about
-      //-       !=contents['about.md'].html
-      //-     section.copy
-      //-       p &copy; #{ new Date().getFullYear() } #{ locals.owner } &mdash; powered by&nbsp;
-      //-         a(href='https://github.com/jnordberg/wintersmith') Wintersmith
-      //-         //- please leave the "powered by" if you use the design
+            //- each tag in env.helpers.getPopularTags()
+            //-   span #{tag} 
+            - var tags = env.helpers.getTags()
+            - var poplar = Object.keys(tags).sort(function(a, b){ return tags[b].length - tags[a].length }).slice(0, 100)
+            - var median_size = tags[poplar[Math.floor(poplar.length / 2)]].length;
+            - function tagsize(num) { return 10 + 10 * 1/(1+Math.exp(-(num - median_size)) ) }
+            each tag in poplar.sort(function(a, b){ return a.toLowerCase() > b.toLowerCase() ? 1 : -1})
+              //- span= tags[tag].length
+              a(href="/tag/"+tag, style="font-size: #{tagsize(tags[tag].length)}px")= tag
+                | 
+                
+
+        #content
+          block content
+
+    script.
+      function squish(){
+        document.getElementById("squishfoot").className += "squish"
+      }
+    style.
+      .squish { font-size: 9px }
+      .squishsquish { font-size: 8px }
+      .squishsquishsquish { font-size: 7px }
+      .squishsquishsquishsquish { font-size: 6px }
+      .squishsquishsquishsquishsquish { font-size: 5px }
+      .squishsquishsquishsquishsquishsquish { font-size: 4px }
+      .squishsquishsquishsquishsquishsquishsquish { visibility: hidden }
+    .graybar.bottom
+      footer
+        #squishfoot
+          | I'm a tiny footer, please don't <a href="javascript:squish()">squish</a> me
+      

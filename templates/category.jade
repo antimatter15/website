@@ -1,0 +1,8 @@
+extends layout
+
+block content
+	h1= category
+	each article in articles
+		h2= article.title
+		p!= article.intro
+		hr

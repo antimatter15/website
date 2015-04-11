@@ -10,6 +10,8 @@
     "./plugins/paginator.coffee",
     "./plugins/index.coffee",
     "./plugins/markdown.coffee",
+    "./plugins/projects.coffee",
+    "./plugins/archive.coffee",
     "wintersmith-less",
     "wintersmith-livereload"
   ],

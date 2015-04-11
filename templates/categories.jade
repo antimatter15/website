@@ -1,0 +1,10 @@
+extends layout
+
+block content
+	each category in Object.keys(categories)
+		a(href='/category/'+env.helpers.slugify(category))
+			h2= category
+		ul
+			each article in categories[category]
+				li
+					a(href=article.url)= article.title

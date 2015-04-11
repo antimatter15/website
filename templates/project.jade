@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div(style="overflow:auto")
+    h1= project.title
+      | 
+      span.caption= project.sub
+    img(src="/"+project.pic[0], style="float:right; width: 400px")
+    p !{project.caption}
+
+  hr
+  if project.subprojects
+    each subproject in project.subprojects
+      .minor(style="overflow:auto")
+        if subproject.pic
+          img(src="/"+subproject.pic[0], style="float:left; width: 200px")
+        else
+          img(src="http://i.imgur.com/rwd8s1N.jpg", style="float:left; width: 200px")
+        .caption
+          h2= subproject.title
+          | 
+          span= subproject.sub
+    hr
+  each article in articles
+    h2= article.title
+    p!= article.intro
+    hr

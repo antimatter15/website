@@ -10,7 +10,10 @@ module.exports = (env, callback) ->
     perPage: 2 # number of articles per page
 
   # assign defaults any option not set in the config file
-  allTags = []
+  # allTags = []
+
+  tags = {}
+
   options = env.config.paginator or {}
   for key, value of defaults
     options[key] ?= defaults[key]
@@ -41,7 +44,6 @@ module.exports = (env, callback) ->
 
   processTags = (articles) ->
     tags = {}
-    
     articles.forEach (article) ->
       getTagsFromArticle(article).forEach (tag) ->
         if tag of tags
@@ -118,7 +120,6 @@ module.exports = (env, callback) ->
     articles = getArticles contents
     tags = processTags articles
     
-
     # populate pages
     numPages = Math.ceil articles.length / options.perPage
     pages = []
@@ -152,7 +153,10 @@ module.exports = (env, callback) ->
 
   # add the article helper to the environment so we can use it later
   env.helpers.getArticles = getArticles
-  env.helpers.isPopularTag = (tag) -> tag in allTags
+  # env.helpers.isPopularTag = (tag) -> tag in allTags
+
+  # env.helpers.getPopularTags = -> Object.keys(tags).filter (a) -> tags[a].length > 2
+  env.helpers.getTags = -> tags
 
   # tell the plugin manager we are done
   callback()

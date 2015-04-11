@@ -5,10 +5,16 @@ block content
   each article in articles
     article.article.intro
       header
-        p.date
-          span= moment.utc(article.date).format('DD. MMMM YYYY')
+        //- .splitter
+        //-   hr
+        //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
+
+        //- p.date
+        //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
         h2
           a(href=article.url)= article.title
+          | 
+          span.subtitle= moment.utc(article.date).format('DD MMMM YYYY')
       section.content
         if article.html.length > 0
           | !{ typogr(article.html).chain().amp().widont().smartypants().caps().initQuotes().value() }
@@ -16,14 +22,15 @@ block content
           p.more
             a(href=article.url) more
 
-block prepend footer
+      hr
+        
   div.nav
     if prevPage
-      a(href=prevPage.url) « Newer
+      a.newer(href=prevPage.url) « Newer
     else
       a(href='/archive.html') « Archives
     if nextPage
-      a(href=nextPage.url) Next page »
+      a.next(href=nextPage.url) Next page »
 
 
 
