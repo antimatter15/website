@@ -1,0 +1,71 @@
+/* code styling */
+
+code {
+  // font-family: 'Source Sans', monospace;
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  
+  // font-size: 0.85em;
+  color: #000;
+}
+
+
+
+pre {
+  font-size: 0.9em;
+  overflow: auto;
+  background: #fff;
+  // border: 1px dashed #d2d2d2;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: #f5f5f5;
+
+  border-radius: 0.25em;
+  margin-bottom: 1.8em;
+  padding: 1em;
+}
+
+
+pre code {
+  border: none;
+  display: block;
+  line-height: 1.1;
+}
+
+p code {
+  padding: 0.1em 0.3em 0.2em;
+  border-radius: 0.3em;
+  border: 1px solid rgba(0, 0, 0, 0.26);
+  position: relative;
+  background: #fffff3;
+
+  white-space: nowrap;
+}
+
+/* syntax hl stuff */
+
+code.lang-markdown {
+  color: #424242;
+}
+
+code.lang-markdown .header,
+code.lang-markdown .strong {
+  font-weight: bold;
+}
+
+code.lang-markdown .emphasis {
+  font-style: italic;
+}
+
+code.lang-markdown .horizontal_rule,
+code.lang-markdown .link_label,
+code.lang-markdown .code,
+code.lang-markdown .header,
+code.lang-markdown .link_url {
+  color: #555;
+}
+
+code.lang-markdown .blockquote,
+code.lang-markdown .bullet {
+  color: #bbb;
+}
+
+@import (inline) "../../node_modules/highlight.js/styles/github.css";
