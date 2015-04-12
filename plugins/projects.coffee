@@ -10,19 +10,20 @@ slugify = require 'slugg'
 module.exports = (env, callback) ->
   class ProjectsDocument extends env.plugins.StaticFile
     constructor: (@filepath, @metadata) ->
-      @projects = @metadata.projects
-      @all_projects = []
-      for p in @projects
-        @all_projects.push(p)
+      @featured = @metadata.featured
+      @projects = []
+      for p in @featured
+        @projects.push(p)
         if p.subprojects
           for s in p.subprojects
-            @all_projects.push(s)
+            s.parent = p
+            @projects.push(s)
 
-      for p in @all_projects
+      for p in @projects
         if p.caption
           p.caption = marked(p.caption)
-        p.url = "project/#{slugify(p.title)}"
-        
+        p.related = p.subprojects || p?.parent?.subprojects && [p.parent].concat(k for k in p.parent.subprojects when k != p)
+        p.url = "/project/#{slugify(p.title)}"
 
 
   ProjectsDocument.fromFile = (filepath, callback) ->
@@ -103,6 +104,28 @@ module.exports = (env, callback) ->
       # finally render the template
       template.render ctx, callback
 
+  class ProjectListPage extends env.plugins.Page
+    ### A page has a number and a list of articles ###
+    constructor: () ->
+
+    getFilename: -> "projects/index.html"
+
+    getView: -> (env, locals, contents, templates, callback) ->
+      # simple view to pass articles and pagenum to the paginator template
+      # note that this function returns a funciton
+
+      # get the pagination template
+      template = templates['projects.jade']
+
+      # setup the template context
+      ctx = {@articles}
+
+      # extend the template context with the enviroment locals
+      env.utils.extend ctx, locals
+
+      # finally render the template
+      template.render ctx, callback
+
 
   # register a generator, 'paginator' here is the content group generated content will belong to
   # i.e. contents._.paginator
@@ -132,10 +155,11 @@ module.exports = (env, callback) ->
 
     rv['category.page'] = new CategoryListPage(categories)
 
+    rv['projects.page'] = new ProjectListPage()
 
     # each project in contents['projects.yaml'].projects
 
-    for project in contents['projects.yaml'].all_projects
+    for project in contents['projects.yaml'].projects
       posts = []
 
       rv[project.title + '.project'] = new ProjectPage(project, posts)

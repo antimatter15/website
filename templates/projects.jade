@@ -1,0 +1,61 @@
+extends layout
+
+block content
+  .projects
+    each projects, type in _.groupBy(contents['projects.yaml'].projects, 'type')
+        .project
+            h2= type
+                |  
+                span.caption= type
+                
+            .cluster
+                each project in projects
+                  .subprojects
+                    a.minor(href=project.url)
+                      if project.pic
+                        img(src=project.pic[0])
+                      else
+                        img(src="http://i.imgur.com/rwd8s1N.jpg")
+                      .caption
+                        h2= project.title
+                        | 
+                        span= project.sub
+    //- each project in contents['projects.yaml'].projects
+    //-   //- pre= inspect(project)
+    //-   .project
+    //-     a(href=project.url)
+    //-       h2= project.title
+    //-         | 
+    //-         span.caption= project.sub
+    //-     .cluster
+    //-       if project.subprojects
+    //-         .major
+    //-           a(href=project.url)
+    //-             if project.pic
+    //-               img(src=project.pic[0])
+    //-             else
+    //-               img(src="http://i.imgur.com/GzJp8PF.jpg")
+    //-           .caption!= project.caption
+    //-         .subprojects
+    //-           each subproject in project.subprojects
+    //-             a.minor(href=subproject.url)
+    //-               if subproject.pic
+    //-                 img(src=subproject.pic[0])
+    //-               else
+    //-                 img(src="http://i.imgur.com/rwd8s1N.jpg")
+    //-               .caption
+    //-                 h2= subproject.title
+    //-                 | 
+    //-                 span= subproject.sub
+    //-       else
+    //-         .major
+    //-           if project.pic
+    //-             img(src=project.pic[0])
+    //-           else
+    //-             img(src="http://i.imgur.com/GzJp8PF.jpg")
+    //-         .right
+    //-           if project.pic
+    //-             img(src=project.pic[1])
+    //-             img(src=project.pic[2])
+    //-             img(src=project.pic[3])
+    //-           .caption!= project.caption

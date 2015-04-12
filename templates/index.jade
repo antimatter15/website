@@ -41,45 +41,12 @@ block content
 
   .splitter(style="text-align:center")
     hr
-    | projects 
+    a(href="/projects") projects 
     //- span(style="font-size: x-small; color: #999") &#9660;
 
   .projects
     
-    //- .project
-    //-   h2 New Technology
-    //-     span.caption hello world
-    //-   .cluster
-    //-     .major
-    //-       img(src="http://i.imgur.com/Mxyb5x5.jpg")
-    //-       .caption
-    //-         | this was a project of mine which i made two years before I was even born
-    //-         | I know that's like really impressive. Also, it won an honorable mention
-    //-         | in the international northern virginia spring caesarian infant premier
-    //-         | hackathon for its sheer brilliance. It was blogged about in every single
-    //-         | publication known to man except for the ones that print in human languages.
-    //-         | I have since worked on it for two entire lifespans, and I'm still actively
-    //-         | maintaining it as my life's work, because I strongly believe that my 
-    //-         | intelligence is decreasing, and thus the only things I should work on are
-    //-         | my oldest ideas.
-    //-     .subprojects
-    //-       .minor
-    //-         img(src="http://i.imgur.com/j9F2qIZ.jpg")
-    //-         .caption
-    //-           h2 Wumbology
-    //-           | The study of wumbo, you dipshit. It's fucking first grade, Spongebob.
-    //-       .minor
-    //-         img(src="http://i.imgur.com/Ngkcwid.jpg")
-    //-         .caption
-    //-           h2 Astral Projections
-    //-           | I don't know what to write about here, but I'm sure deepak chopra can elaborate at length
-    //-       .minor
-    //-         img(src="http://i.imgur.com/rXtJ7Dr.jpg")
-    //-         .caption
-    //-           h2 Stress
-    //-           | Learn everything and more about tensors and the ilk. Hopefully this is like long enough to fit the aesthetic paradigm.
-
-    each project in contents['projects.yaml'].projects
+    each project in contents['projects.yaml'].featured
       //- pre= inspect(project)
       .project
         a(href=project.url)
