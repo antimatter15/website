@@ -10,7 +10,9 @@ block content
 	each year in Object.keys(archives).sort(function(b,a){return a > b ? 1 : -1})
 		h2= year
 		table
-			each posts, month in archives[year]
+			//- each posts, month in archives[year]
+			each month in Object.keys(archives[year]).sort(function(b,a){return a - b})
+				- var posts = archives[year][month]
 				tr
 					td.archivemonth
 						h3 #{month_names[month]} <span style="font-weight: 100"> #{year} </span>

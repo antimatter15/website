@@ -455,7 +455,7 @@ featured:
         sub: an online multiplayer rpg from middle school
         cat: CometRPG
         type:
-          - web app
+          - game
         pic:
           - img/projects/gaem.png
         caption: |
@@ -517,6 +517,56 @@ projects:
     pic:
       - img/projects/planck.jpg
 
+  - title: Pinball
+    sub: a simple pinball game
+    type:
+      - game
+    pic:
+      - img/projects/pinball.png
+
+  - title: gravity
+    sub: a simple game with attractors
+    type:
+      - game
+    pic:
+      - img/projects/gravity.png
+
+  - title: HeapQueue.JS
+    sub: a simple priority queue in javascript
+    type:
+      - library
+    pic:
+      - img/projects/heap.png
+
+  - title: vX.JS
+    sub: a javascript library that favors size over clarity
+    type:
+      - library
+    # pic:
+    #   - img/projects/vxjs.png
+
+
+  - title: SubleqVM
+    sub: subleq vm memory visualizer
+    type:
+      - experiment
+    # pic:
+    #   - img/projects/hqx.png
+
+  - title: hqx.js
+    sub: pixel art scaling in the browser
+    type:
+      - library
+    pic:
+      - img/projects/hqx.png
+
+  - title: distributed pi
+    sub: compute pi with bpf algorithm
+    type:
+      - experiment
+    pic:
+      - img/projects/pi.png
+
   - title: Brass Doge
     sub: |
           wow such ring. very mit. many class.
@@ -535,6 +585,8 @@ projects:
           - img/projects/lasers.jpg
 
       - title: Alarm/Bed
+        type: 
+          - iot
         sub: |
               yeah. okay.
         pic:
