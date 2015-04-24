@@ -1,36 +1,24 @@
 extends layout
-
+include post
 block content
   include author
+  
+  if typeof title != 'undefined'
+    h1= title
+
   each article in articles
-    article.article.intro
-      header
-        //- .splitter
-        //-   hr
-        //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
-
-        //- p.date
-        //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
-        h2
-          a(href=article.url)= article.title
-          | 
-          span.subtitle= moment.utc(article.date).format('DD MMMM YYYY')
-      section.content
-        if article.html.length > 0
-          | !{ typogr(article.html).chain().amp().widont().smartypants().caps().initQuotes().value() }
-        if article.hasMore
-          p.more
-            a(href=article.url) more
-
+      mixin post(article)
       hr
         
   div.nav
     if prevPage
       a.newer(href=prevPage.url) « Newer
     else
-      a(href='/archive.html') « Archives
+      a.newer(href='/archive') « Archives
     if nextPage
       a.next(href=nextPage.url) Next page »
+    else if !prevPage
+      a.next(href='/page/1') Latest Posts »
 
 
 

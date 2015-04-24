@@ -7,20 +7,19 @@ block content
   //-   p= article.title
 
   .featured
-    h2= featured.title
-      | 
-      span.subtitle latest half-decent blog post, I hope
+    a(href=featured.url)
+      h2= featured.title
+        | 
+        span.subtitle latest half-decent blog post, I hope
     .post
 
 
       .pic
-        img(src="http://i.imgur.com/4Ur5pTl.jpg")
-        .caption
-          | Look, I'm pretty upset about how the Colbert Report ended too
-          | and there isn't really anything I can do about it, but here's
-          | some cute bears.
-
-      .text!= typogr(featured.intro).typogrify() 
+        img(src=im(featured.picture))
+        //- .caption
+        //-   | I don't know if it's possible to specify a caption in markdown
+          
+      .text!= typogr(featured.intro).typogrify().replace(/<img .*?>/g, '') 
 
 
   .splitter
@@ -30,11 +29,15 @@ block content
   
   .hand
     each article in articles.filter(function(e){return e != featured}).slice(0, 6)
-      .thumb
-        .caption 
-          h2= article.metadata.short || article.title
-          .sub= article.title
-        img(src="http://i.imgur.com/Bc0Zuq1.jpg")
+      a(href=article.url)
+        .thumb
+          .caption 
+            h2= article.metadata.short || article.title
+            .sub= article.metadata.caption || article.title
+          if article.picture
+            img(src=im(article.picture))
+          else
+            img(src=im("http://i.imgur.com/Bc0Zuq1.jpg"))
 
     //- .thumb
     //-     img(src="http://i.imgur.com/fSgnUKW.jpg", style="height: 100%")
@@ -58,53 +61,35 @@ block content
             .major
               a(href=project.url)
                 if project.pic
-                  img(src=project.pic[0])
+                  img(src=im(project.pic[0]))
                 else
-                  img(src="http://i.imgur.com/GzJp8PF.jpg")
+                  img(src=im("http://i.imgur.com/GzJp8PF.jpg"))
               .caption!= project.caption
             .subprojects
               each subproject in project.subprojects
-                a.minor(href=subproject.url)
-                  if subproject.pic
-                    img(src=subproject.pic[0])
-                  else
-                    img(src="http://i.imgur.com/rwd8s1N.jpg")
-                  .caption
-                    h2= subproject.title
-                    | 
-                    span= subproject.sub
+                if subproject.featured !== false
+                  a.minor(href=subproject.url)
+                    if subproject.pic
+                      img(src=im(subproject.pic[0]))
+                    else
+                      img(src=im("http://i.imgur.com/rwd8s1N.jpg"))
+                    .caption
+                      h2= subproject.title
+                      | 
+                      span= subproject.sub
           else
             .major
-              if project.pic
-                img(src=project.pic[0])
-              else
-                img(src="http://i.imgur.com/GzJp8PF.jpg")
+              a(href=project.url)
+                if project.pic
+                  img(src=im(project.pic[0]))
+                else
+                  img(src=im("http://i.imgur.com/GzJp8PF.jpg"))
             .right
               if project.pic
-                img(src=project.pic[1])
-                img(src=project.pic[2])
-                img(src=project.pic[3])
+                a(href=project.url)
+                  img(src=im(project.pic[1]))
+                  img(src=im(project.pic[2]))
+                  img(src=im(project.pic[3]))
               .caption!= project.caption
       
-    //- .project
-    //-   h2 Protobowl
-    //-     span.caption real time quizbowl has never been more bowl
-    //-   .cluster
-    //-     .major
-    //-       img(src="http://i.imgur.com/GzJp8PF.jpg")
-    //-     .right
-    //-       img(src="http://i.imgur.com/Bc0Zuq1.jpg")
-    //-       img(src="http://i.imgur.com/1eLagFP.jpg")
-    //-       img(src="http://i.imgur.com/gLd4DOL.jpg")
-
-    //-       .caption
-    //-         | The problem I have with the paparazzi is if they’re right in front of you and you’re like, 
-    //-         | “Can you please not take a picture of me?” And they’re like, “Dude I’m not really taking a picture,” 
-    //-         | and they just keep on doing it like they’re talking to me like I’m stupid and stuff, and then, with 
-    //-         | arm sprints, I’m going to grab the camera, that just happens, and you don’t expect that to happen 
-    //-         | with a celebrity, cause you think they’re like a museum animal and stuff, but it’s like, don’t shoot 
-    //-         | the animals, then, maybe, I don’t know.
-  
-  //- p
-  //-   | For a full list of projects
   

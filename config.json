@@ -19,7 +19,8 @@
   "require": {
     "moment": "moment",
     "_": "underscore",
-    "typogr": "typogr"
+    "typogr": "typogr",
+    "im": "./plugins/images.coffee"
   },
   "jade": {
     "pretty": true

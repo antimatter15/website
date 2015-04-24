@@ -12,7 +12,7 @@ module.exports = (env, callback) ->
     constructor: (@filepath, @metadata) ->
       @featured = @metadata.featured
       @projects = []
-      for p in @featured
+      for p in [].concat(@featured, @metadata.projects)
         @projects.push(p)
         if p.subprojects
           for s in p.subprojects
@@ -22,6 +22,8 @@ module.exports = (env, callback) ->
       for p in @projects
         if p.caption
           p.caption = marked(p.caption)
+        if p.about
+          p.about = marked(p.about)
         p.related = p.subprojects || p?.parent?.subprojects && [p.parent].concat(k for k in p.parent.subprojects when k != p)
         p.url = "/project/#{slugify(p.title)}"
 
@@ -161,7 +163,10 @@ module.exports = (env, callback) ->
 
     for project in contents['projects.yaml'].projects
       posts = []
-
+      if categories[project.cat]
+        posts = categories[project.cat]
+      else if categories[project.title]
+        posts = categories[project.title]
       rv[project.title + '.project'] = new ProjectPage(project, posts)
 
     # console.log getArticles

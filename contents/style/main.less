@@ -17,7 +17,8 @@ html, body {
 @rule: #D8D8D8;
 @normaltext: #535353;
 @note: #8A8B8A;
-
+@graybar: #E8E8E8;
+// @graybar: #0189AF;
 
 @small: 14px;
 
@@ -26,7 +27,7 @@ body {
   font-family: 'Avenir Next', sans-serif;
   font-size: 15px;
   // line-height: 1.52;
-  background-color: whiteSmoke;
+  background-color: @graybar;
   text-rendering: optimizeLegibility;
   margin: 0;
   font-size: 16px;
@@ -37,11 +38,20 @@ body {
 a {
 	color: #416892;
 	text-decoration: none;
+}
+
+p a {
 	font-weight: 500;
 }
 
 a:visited {
 	color: #924185;
+}
+
+a, a:visited {
+	div {
+		font-weight: inherit;
+	}
 }
 
 
@@ -93,6 +103,20 @@ h1, h2, h3, h4, h5, h6 {
 	a, a:visited {
 		font-weight: normal;
 		color: @note;
+	}
+}
+
+ul.tags {
+	display: inline;
+	
+	padding: 0;
+	margin: 0;
+	margin-bottom: 30px;
+	color: @note;
+
+	li {
+		list-style: none;
+		display: inline;
 	}
 }
 
@@ -159,11 +183,15 @@ header.top {
 }
 
 .whitebox {
-	background: white;
+	background: whiteSmoke;
+	overflow: auto;
+	padding-bottom: 30px;
 }
 
 .graybar {
-	// background: whiteSmoke;
+	background: @graybar;
+	// background: url(/888496-sky-wallpaper.jpg);
+	background-attachment: fixed;
 	top: 0;
 	overflow-y: auto;
 	// background: url(http://subtlepatterns.com/patterns/fabric_of_squares_gray.png);
@@ -215,7 +243,7 @@ footer {
 	}
 	#main {
 		padding-bottom: @space;
-		overflow: auto;
+		// overflow: auto;
 	}
 
 	article header h2 {
@@ -266,18 +294,24 @@ footer {
 		margin-top: @space;
 	}
 
-	@contentwidth: @width - @sidebar - @space;
+	@contentborder: 1px;
+	@contentwidth: @width - @sidebar - 2 * @space - 2 * @contentborder;
 
 	.sidebar {
 		width: @sidebar;
-		border-right: 1px solid @rule;
+		// border-right: 1px solid @rule;
 		padding-right: @space;
 		color: @note;
 	}
 
 	#content {
 		width: @width - @sidebar;
-		padding-left: @space;
+		// padding-left: @space;
+		padding: @space;
+		padding-top: @space - 7px;
+		border: 1px solid @rule;
+		margin-top: -60px;
+		background: white;
 		word-wrap: break-word;
 
 		.post {
@@ -295,8 +329,8 @@ footer {
 			.pic {
 				width: @contentwidth - @textwidth - @space;
 				float: right;
-				margin-left: @space;
-				margin-bottom: @space;
+				margin-left: @space / 2;
+				margin-bottom: @space / 2;
 			}
 			.caption {
 				font-size: @small;
@@ -350,6 +384,45 @@ footer {
 				oveflow: hidden;
 				// margin-bottom: 10px;
 			}
+		}
+	}
+
+	.caption {
+		font-size: @small;
+		color: @note;
+		padding-right: @space / 2;
+	}
+
+	.projectlist {		
+
+		display: flex;
+		flex-wrap: wrap;
+		.project {
+			flex-grow: 1;
+			min-width: 300px;
+			max-width: @contentwidth / 2;
+
+			img {
+				width: @contentwidth * (1/6);
+				object-fit: cover;
+				height: 90px;
+				margin-right: @space / 2;
+				float: left;
+			}
+			h2 {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			overflow: auto;
+			margin-bottom: @space;
+		}
+		img {
+			// box-shadow: 0 0 2px rgba(0,0,0,0.2);
+			margin-top: 2px;
+			margin-bottom: 2px;
+			border-radius: 2px;
+
 		}
 	}
 
@@ -488,6 +561,9 @@ footer {
 	// 	@titleheight: 40px;
 	// 	@cols: 2;
 	// );
+	.whitebox {
+		background-color: white;
+	}
 	header.top, #main, footer {
 	  width: 80%;
 	  margin-left: auto;
@@ -529,6 +605,8 @@ footer {
 				width: 70%;
 				padding-left: @space;
 				float: right;
+				font-size: @small;
+				color: @note;
 				h2 {
 					text-overflow: ellipsis;
 					white-space: nowrap;
@@ -545,6 +623,7 @@ footer {
 			padding-bottom: @space;
 		}
 		.minor {
+			display: block;
 			overflow-y: auto;
 			margin-top: @space;
 			img {
@@ -555,6 +634,8 @@ footer {
 				padding-left: @space;
 				width: 70%;
 				float: left;
+				font-size: @small;
+				color: @note;
 			}
 		}
 		.right img {

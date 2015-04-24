@@ -1,0 +1,27 @@
+extends layout
+
+block content
+	style.
+		.archivemonth {
+			width: 200px;
+		}
+		
+	- var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+	each year in Object.keys(archives).sort(function(b,a){return a > b ? 1 : -1})
+		h2= year
+		table
+			each posts, month in archives[year]
+				tr
+					td.archivemonth
+						h3 #{month_names[month]} <span style="font-weight: 100"> #{year} </span>
+					td.archiveposts
+						each post in posts
+							p
+								a(href=post.url)= post.title
+	//- each archive in Object.keys(categories)
+	//- 	a(href='/archive/'+env.helpers.slugify(archive))
+	//- 		h2= archive
+	//- 	ul
+	//- 		each article in categories[archive]
+	//- 			li
+	//- 				a(href=article.url)= article.title

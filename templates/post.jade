@@ -1,0 +1,19 @@
+mixin post(article)
+  article.article.intro
+    header
+      //- .splitter
+      //-   hr
+      //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
+
+      //- p.date
+      //-   span= moment.utc(article.date).format('DD. MMMM YYYY')
+      h2
+        a(href=article.url)= article.title
+        | 
+        span.subtitle= moment.utc(article.date).format('DD MMMM YYYY')
+    section.content
+      if article.html.length > 0
+        | !{ typogr(article.html).chain().amp().widont().smartypants().caps().initQuotes().value() }
+      if article.hasMore
+        p.more
+          a(href=article.url) more

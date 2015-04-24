@@ -17,26 +17,27 @@ html(lang='en')
       | !{ livereloadScript }
 
   body
-    .graybar.top
-      header.top
-        div.slogan
-          | somewhere to talk about random ideas and projects like everyone else
-        
-        a(href='/')
-          h1.logo 
-            | stuff
-            | 
-            span.byline by antimatter15
-        //- div.content-wrap
-        //-   block header
-        //-     div.logo
-        //-       h1
-        //-         a(href=locals.url)= locals.name
-        //-         span.byline by antimatter15
-        //-       p.description= locals.description
-    
-    //- hr
+
     .whitebox
+      .graybar.top
+        header.top
+          div.slogan
+            | somewhere to talk about random ideas and projects like everyone else
+          
+          a(href='/')
+            h1.logo 
+              | stuff
+              | 
+              span.byline by antimatter15
+          //- div.content-wrap
+          //-   block header
+          //-     div.logo
+          //-       h1
+          //-         a(href=locals.url)= locals.name
+          //-         span.byline by antimatter15
+          //-       p.description= locals.description
+      
+    
       div#main
         .sidebar
           .about
@@ -52,7 +53,8 @@ html(lang='en')
             p
               | For more obnoxious autobiographical content 
               | blended with bits of nostalgia for the old PHP-on-sketchy-free-webhosting days, click here.
-          hr
+          //- hr
+          br
           
           - var lineHeight = 2.2;
           - var archives = _.chain(env.helpers.getArticles(contents)).groupBy(function(item) {
@@ -63,7 +65,8 @@ html(lang='en')
           - }
           - var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
           section.archive
-              h2 Archive
+              a(href="/archive")
+                h2 Archive
               ul
                   - var yearsK = _.chain(archives).keys().reverse().value()
                   - for(var year in yearsK)

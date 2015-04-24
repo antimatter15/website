@@ -12,19 +12,78 @@ block prepend title
 block content
   //- include author
   //- include tags
-  h2= page.title
-  p.author
-    //- | #{ "Written by " }
-    //- mixin author(page.metadata.author)
-    p= page.metadata.categories
+  //- div(style="overflow:auto;")
+  //-   h1= project.title
+  //-     | 
+  //-     span.caption= project.sub
+
+  h2
+    = page.title
+    | 
+    span.subtitle= moment.utc(page.date).format('DD MMMM YYYY')
+
+  //- p.author
+  //-   //- | #{ "Written by " }
+  //-   //- mixin author(page.metadata.author)
+  //-   p= page.metadata.categories
     
   article.article
     section.content!= typogr(page.html).chain().amp().widont().smartypants().caps().initQuotes().value()
 
+
+
+  //- .splitter
+  //-     hr
+  //-     | project
+
+  //- div(style="overflow:auto; margin-bottom: 30px")
+  //-   h1= project.title
+  //-     | 
+  //-     span.caption= project.sub
+
+  //-   if project.caption
+  //-     //- if project.pic
+  //-     //-   img(src="/"+project.pic[0], style="float:right; width: 300px")
+
+  //-     //- p !{project.caption}
+
   //- mixin tags(page.metadata.tags)
-  ul
-    each tag in page.metadata.tags
-      li= tag
+  div
+    ul.tags
+      if page.metadata.tags
+        //- each tag in page.metadata.tags
+        //-   li= tag
+
+        - var tags = env.helpers.getTags()
+        - var poplar = Object.keys(tags).sort(function(a, b){ return tags[b].length - tags[a].length }).slice(0, 100)
+        - var median_size = tags[poplar[Math.floor(poplar.length / 2)]].length;
+        - function tagsize(num) { return 10 + 10 * 1/(1+Math.exp(-(num - median_size)) ) }
+        each tag in page.metadata.tags
+          //- span= tags[tag].length
+          if tags[tag].length > 1
+            li
+              a(href="/tag/"+tag, style="font-size: #{tagsize(tags[tag].length)}px")= "#"+tag
+              | 
+  br
+
+  if project
+    if project.related
+      .splitter
+        hr
+        | related
+
+      .hand
+        each related in [project].concat(project.related)
+          a.thumb(href=related.url)
+            .caption 
+              h2= related.title
+              .sub= related.sub
+            if related.pic
+              img(src="/"+related.pic[0])
+            else
+              img(src="http://i.imgur.com/rwd8s1N.jpg")
+
+
 
 block prepend footer
   div.nav

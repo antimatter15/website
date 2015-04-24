@@ -9,24 +9,6 @@ module.exports = (env, callback) ->
   for key, value of defaults
     options[key] ?= defaults[key]
 
-  getArticles = (contents) ->
-    # helper that returns a list of articles found in *contents*
-    # note that each article is assumed to have its own directory in the articles directory
-    # console.log contents[options.articles]._
-    articles = []
-    walk = (dir) ->
-      articles.push(dir.index)
-      dir._.directories.map(walk)
-    # articles = []
-    walk(contents[options.articles])
-    # articles = contents[options.articles]._.directories.map (item) -> item.index
-    # skip articles that does not have a template associated
-    articles = articles.filter (item) -> item && item.template isnt 'none'
-    # sort article by date
-    articles.sort (a, b) -> b.date - a.date
-
-    return articles
-
 
   class IndexPage extends env.plugins.Page
     ### A page has a number and a list of articles ###
@@ -64,7 +46,7 @@ module.exports = (env, callback) ->
   env.registerGenerator 'index', (contents, callback) ->
     # console.log contents
     # find all articles
-    articles = getArticles contents
+    articles = env.helpers.getArticles contents
     # tags = processTags articles
     
 

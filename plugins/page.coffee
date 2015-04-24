@@ -21,7 +21,14 @@ module.exports = (env, callback) ->
       callback new Error "page '#{ @filename }' specifies unknown template '#{ @template }'"
       return
 
-    ctx = {page: this}
+    proj = null
+    # console.log env
+    for project in contents['projects.yaml'].projects
+      for cat in @metadata.categories
+        if cat.toLowerCase() == (project.cat || project.title).toLowerCase()
+          proj = project
+
+    ctx = {page: this, project: proj}
     env.utils.extend ctx, locals
 
     template.render ctx, callback
@@ -123,6 +130,18 @@ module.exports = (env, callback) ->
         return html.substr 0, idx
       else
         return html
+
+    @property 'picture', 'getPicture'
+    getPicture: (base) ->
+      html = @getHtml(base)
+      matches = html.match(/<img src=".*?"/g)
+      pics = []
+      if matches
+        pics = (link.match(/<img src="(.*?)"/)[1] for link in matches)
+      console.log pics
+      return pics?[0]
+
+
 
     @property 'filenameTemplate', 'getFilenameTemplate'
     getFilenameTemplate: ->

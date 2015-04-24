@@ -1,7 +1,7 @@
 
 extends layout
 
-
+include post
 block content
     - var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     
@@ -12,9 +12,15 @@ block content
     
     //- p #{articles.length} posts
     
-    hr
+    //- hr
 
     each article in articles
-        h2= article.title
-        p!= article.intro
+        mixin post(article)
         hr
+
+    div.nav
+        a.newer(href='/archive') « Archives
+        a.next(href='/page/1') Latest Posts »
+
+
+
