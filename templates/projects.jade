@@ -1,5 +1,8 @@
 extends layout
 
+block title
+    title Projects
+
 block content
   
     each projects, type in _.groupBy(contents['projects.yaml'].projects, 'type')
@@ -12,9 +15,9 @@ block content
               .project
                 a.minor(href=project.url)
                   if project.pic
-                    img(src=im(project.pic[0]))
+                    +img(project.pic[0])
                   else
-                    img(src=im("http://i.imgur.com/rwd8s1N.jpg"))
+                    +img("/img/dog.jpg")
                   .caption
                     h2= project.title
                     | 

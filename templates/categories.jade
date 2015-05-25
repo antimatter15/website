@@ -1,5 +1,8 @@
 extends layout
 
+block title
+	title Categories
+
 block content
 	each category in Object.keys(categories)
 		a(href='/category/'+env.helpers.slugify(category))

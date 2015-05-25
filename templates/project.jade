@@ -1,6 +1,9 @@
 extends layout
 include post
 
+block title
+  title= project.title
+
 block content
   div(style="overflow:auto; margin-bottom: 30px")
     h1= project.title
@@ -9,7 +12,7 @@ block content
 
     if project.caption
       if project.pic
-        img(src=im("/"+project.pic[0]), style="float:right; width: 300px")
+        +img("/"+project.pic[0])(style="float:right; width: 300px")
 
       p !{project.caption}
       if project.about
@@ -29,9 +32,9 @@ block content
             h2= related.title
             .sub= related.sub
           if related.pic
-            img(src=im("/"+related.pic[0]))
+            +img("/"+related.pic[0])
           else
-            img(src=im("http://i.imgur.com/rwd8s1N.jpg"))
+            +img("/img/dog.jpg")
 
   .splitter
     hr
