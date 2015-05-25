@@ -12,15 +12,18 @@
     "./plugins/markdown.coffee",
     "./plugins/projects.coffee",
     "./plugins/archive.coffee",
+    "./plugins/resize.coffee",
     "wintersmith-less",
     "wintersmith-livereload"
+  ],
+  "ignore": [
+    "**/.*"
   ],
   "filenameTemplate": "/:year/:month/:title/index.html",
   "require": {
     "moment": "moment",
     "_": "underscore",
-    "typogr": "typogr",
-    "im": "./plugins/images.coffee"
+    "typogr": "typogr"
   },
   "jade": {
     "pretty": true

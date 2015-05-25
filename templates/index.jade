@@ -15,7 +15,8 @@ block content
 
 
       .pic
-        img(src=im(featured.picture))
+        //- +img(featured.picture)
+        +img(featured.picture)
         //- .caption
         //-   | I don't know if it's possible to specify a caption in markdown
           
@@ -35,9 +36,11 @@ block content
             h2= article.metadata.short || article.title
             .sub= article.metadata.caption || article.title
           if article.picture
-            img(src=im(article.picture))
+            //- +img(article.picture)
+            +img(article.picture)
           else
-            img(src=im("http://i.imgur.com/Bc0Zuq1.jpg"))
+            //- +img("/img/cat.jpg")
+            +img("/img/cat.jpg")
 
     //- .thumb
     //-     img(src="http://i.imgur.com/fSgnUKW.jpg", style="height: 100%")
@@ -61,18 +64,18 @@ block content
             .major
               a(href=project.url)
                 if project.pic
-                  img(src=im(project.pic[0]))
+                  +img(project.pic[0])
                 else
-                  img(src=im("http://i.imgur.com/GzJp8PF.jpg"))
+                  +img("/img/brick.jpg")
               .caption!= project.caption
             .subprojects
               each subproject in project.subprojects
                 if subproject.featured !== false
                   a.minor(href=subproject.url)
                     if subproject.pic
-                      img(src=im(subproject.pic[0]))
+                      +img(subproject.pic[0])
                     else
-                      img(src=im("http://i.imgur.com/rwd8s1N.jpg"))
+                      +img("/img/dog.jpg")
                     .caption
                       h2= subproject.title
                       | 
@@ -81,15 +84,15 @@ block content
             .major
               a(href=project.url)
                 if project.pic
-                  img(src=im(project.pic[0]))
+                  +img(project.pic[0])
                 else
-                  img(src=im("http://i.imgur.com/GzJp8PF.jpg"))
+                  +img("/img/dog.jpg")
             .right
               if project.pic
                 a(href=project.url)
-                  img(src=im(project.pic[1]))
-                  img(src=im(project.pic[2]))
-                  img(src=im(project.pic[3]))
+                  +img(project.pic[1])
+                  +img(project.pic[2])
+                  +img(project.pic[3])
               .caption!= project.caption
       
   

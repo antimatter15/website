@@ -24,6 +24,7 @@ module.exports = (env, callback) ->
     proj = null
     # console.log env
     for project in contents['projects.yaml'].projects
+      continue unless @metadata.categories
       for cat in @metadata.categories
         if cat.toLowerCase() == (project.cat || project.title).toLowerCase()
           proj = project
@@ -138,7 +139,7 @@ module.exports = (env, callback) ->
       pics = []
       if matches
         pics = (link.match(/<img src="(.*?)"/)[1] for link in matches)
-      console.log pics
+      # console.log pics
       return pics?[0]
 
 

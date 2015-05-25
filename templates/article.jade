@@ -60,7 +60,7 @@ block content
         - function tagsize(num) { return 10 + 10 * 1/(1+Math.exp(-(num - median_size)) ) }
         each tag in page.metadata.tags
           //- span= tags[tag].length
-          if tags[tag].length > 1
+          if tag in tags && tags[tag].length > 1
             li
               a(href="/tag/"+tag, style="font-size: #{tagsize(tags[tag].length)}px")= "#"+tag
               | 
@@ -83,6 +83,21 @@ block content
             else
               img(src="http://i.imgur.com/rwd8s1N.jpg")
 
+  .splitter
+    hr
+    | comments
+  br
+
+  <div id="disqus_thread"></div>
+  script.
+      var disqus_shortname = 'antimatter15',
+          disqus_title = '#{page.title}';
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 
 block prepend footer
