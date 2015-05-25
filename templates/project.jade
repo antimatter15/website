@@ -12,7 +12,7 @@ block content
 
     if project.caption
       if project.pic
-        +img("/"+project.pic[0])(style="float:right; width: 300px")
+        +img(project.pic[0])(style="float:right; width: 300px")
 
       p !{project.caption}
       if project.about
@@ -32,7 +32,7 @@ block content
             h2= related.title
             .sub= related.sub
           if related.pic
-            +img("/"+related.pic[0])
+            +img(related.pic[0])
           else
             +img("/img/dog.jpg")
 
