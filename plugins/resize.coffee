@@ -15,7 +15,8 @@ module.exports = (env, callback) ->
         # console.log @filepath
         try
           gm(@filepath.full)
-            .resize(600)
+            .resize(if @size == 'medium' then 500 else 200)
+            .quality(86)
             .background('white')
             .flatten()
             .setFormat('jpeg')
@@ -44,7 +45,8 @@ module.exports = (env, callback) ->
     images = getImages(contents)
     rv = { }
     for image in images
-      rv[image.relative + '.scaled'] = new ScaledImage(image)
+      rv[image.relative + '.medium'] = new ScaledImage(image, 'medium')
+      rv[image.relative + '.small'] = new ScaledImage(image, 'small')
 
     callback null, rv
   callback()

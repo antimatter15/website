@@ -26,13 +26,9 @@ block content
         //-   | I don't know if it's possible to specify a caption in markdown
           
       .text
-        != typogr(featured.intro).typogrify().replace(/<\/p>\s*<p>\s*$/, ' ')
+        != typogr(featured.intro).typogrify().replace(/<\/p>\s*<p>\s*$/, ' ').replace(/<img .*?>/g, '') 
         a(href=featured.url) &nbsp;&nbsp;Read More ❯
-      //- .replace(/<div .*?<\/div>/g, '') 
-
-
-
-
+    
   .splitter
     hr
     a(href="/page/1") posts 
@@ -83,9 +79,9 @@ block content
                 if subproject.featured !== false
                   a.minor(href=subproject.url)
                     if subproject.pic
-                      +img(subproject.pic[0])
+                      +small(subproject.pic[0])
                     else
-                      +img("/img/dog.jpg")
+                      +small("/img/dog.jpg")
                     .caption
                       h2= subproject.title
                       | 
@@ -100,9 +96,9 @@ block content
             .right
               if project.pic
                 a(href=project.url)
-                  +img(project.pic[1])
-                  +img(project.pic[2])
-                  +img(project.pic[3])
+                  +small(project.pic[1])
+                  +small(project.pic[2])
+                  +small(project.pic[3])
               .caption!= project.caption
       
   

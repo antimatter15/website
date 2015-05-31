@@ -347,6 +347,8 @@ article {
 		color: @note;
 	}
 
+	.slogan { display: none }
+
 	#content {
 		width: @width - @sidebar;
 		// padding-left: @space;
@@ -506,7 +508,7 @@ article {
 			overflow-y: auto;
 		}
 		.major {
-			width: @contentwidth * (2/5);
+			width: @contentwidth * (2/5) - 2px;
 			float: left;
 			img {
 				width: 100%;
