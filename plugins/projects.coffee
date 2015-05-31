@@ -136,17 +136,8 @@ module.exports = (env, callback) ->
     # find all articles
     # articles = getArticles contents
     # tags = processTags articles
-    categories = { Uncategorized: [] }
-    articles = env.helpers.getArticles(contents)
-    for art in articles
-      unless art?.metadata?.categories?.length
-        categories['Uncategorized'].push art
-        continue
-      for cat in art?.metadata?.categories
-        if cat not of categories
-          categories[cat] = []
-        categories[cat].push art
-
+    
+    categories = env.helpers.getCategories(contents)
 
     # create the object that will be merged with the content tree (contents)
     # do _not_ modify the tree directly inside a generator, consider it read-only
@@ -200,5 +191,17 @@ module.exports = (env, callback) ->
     callback null, rv
 
   env.helpers.slugify = slugify
+  env.helpers.getCategories = (contents) ->
+    categories = { Uncategorized: [] }
+    articles = env.helpers.getArticles(contents)
+    for art in articles
+      unless art?.metadata?.categories?.length
+        categories['Uncategorized'].push art
+        continue
+      for cat in art?.metadata?.categories
+        if cat not of categories
+          categories[cat] = []
+        categories[cat].push art
+    return categories
 
   callback()

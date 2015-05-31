@@ -11,6 +11,7 @@
     "./plugins/index.coffee",
     "./plugins/markdown.coffee",
     "./plugins/projects.coffee",
+    "./plugins/about.coffee",
     "./plugins/archive.coffee",
     "./plugins/resize.coffee",
     "wintersmith-less",

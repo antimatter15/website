@@ -1,0 +1,15 @@
+extends layout
+include post
+
+block title
+  title About
+
+block content
+    h1 About
+
+    div!= articles[0].html
+    hr
+
+    div.nav
+        a.newer(href='/archive') « Archives
+        a.next(href='/category/about') About Pages »
