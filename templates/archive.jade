@@ -3,9 +3,16 @@ extends layout
 
 include post
 
+
+
+block title
+    - var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    title
+        | #{month_names[fullmonth]} 
+        | #{fullyear}
+
 block content
     - var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    
     h1 
         | #{month_names[fullmonth]} 
         | #{fullyear}

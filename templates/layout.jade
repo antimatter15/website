@@ -17,6 +17,7 @@ html(lang='en')
       | !{ livereloadScript }
 
     block title
+      title stuff
 
   body
 
@@ -103,7 +104,7 @@ html(lang='en')
             - function tagsize(num) { return 10 + 10 * 1/(1+Math.exp(-(num - median_size)) ) }
             each tag in poplar.sort(function(a, b){ return a.toLowerCase() > b.toLowerCase() ? 1 : -1})
               //- span= tags[tag].length
-              a(href="/tag/"+tag, style="font-size: #{tagsize(tags[tag].length)}px")= tag
+              a(href="/tag/"+tag, style="font-size: #{Math.round(tagsize(tags[tag].length))}px")= tag
                 | 
                 
 

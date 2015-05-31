@@ -1,5 +1,12 @@
 extends layout
 include post
+
+block title
+  if typeof title != 'undefined'
+    title= title
+  else
+    title stuff
+
 block content
   include author
   

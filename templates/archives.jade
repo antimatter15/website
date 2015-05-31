@@ -10,12 +10,13 @@ block content
 		}
 		
 	- var month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-	each year in Object.keys(archives).sort(function(b,a){return a > b ? 1 : -1})
-		h2= year
+	each year in Object.keys(archive_map).sort(function(b,a){return a > b ? 1 : -1})
+		a(href="/" + year)
+			h2= year
 		table
 			//- each posts, month in archives[year]
-			each month in Object.keys(archives[year]).sort(function(b,a){return a - b})
-				- var posts = archives[year][month]
+			each month in Object.keys(archive_map[year]).sort(function(b,a){return a - b})
+				- var posts = archive_map[year][month]
 				tr
 					td.archivemonth
 						h3 #{month_names[month]} <span style="font-weight: 100"> #{year} </span>

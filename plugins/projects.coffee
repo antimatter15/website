@@ -25,7 +25,7 @@ module.exports = (env, callback) ->
         if p.about
           p.about = marked(p.about)
         p.related = p.subprojects || p?.parent?.subprojects && [p.parent].concat(k for k in p.parent.subprojects when k != p)
-        p.url = "/project/#{slugify(p.title)}"
+        p.url = "/project/#{slugify(p.title)}/"
 
 
   ProjectsDocument.fromFile = (filepath, callback) ->

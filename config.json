@@ -19,6 +19,7 @@
   "ignore": [
     "**/.*"
   ],
+  "output": "../wintersmith-build",
   "filenameTemplate": "/:year/:month/:title/index.html",
   "require": {
     "moment": "moment",

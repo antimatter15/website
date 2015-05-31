@@ -12,7 +12,8 @@ block content
 
     if project.caption
       if project.pic
-        +img(project.pic[0])(style="float:right; width: 300px")
+        .pic.right(style="width: 300px")
+          +img(project.pic[0])
 
       p !{project.caption}
       if project.about

@@ -28,9 +28,13 @@ module.exports = (env, callback) ->
   class ArchiveListing extends env.plugins.Page
     ### A page has a number and a list of articles ###
 
-    constructor: (@archives) ->
+    constructor: (@archives, @year) ->
 
-    getFilename: -> "archive/index.html"
+    getFilename: -> 
+      if @year
+        "#{@year}/index.html"
+      else
+        "archive/index.html"
 
     getView: -> (env, locals, contents, templates, callback) ->
       # simple view to pass articles and pagenum to the paginator template
@@ -39,7 +43,13 @@ module.exports = (env, callback) ->
       # get the pagination template
       template = templates['archives.jade']
       # setup the template context
-      ctx = {@archives}
+      if @year
+        archives = {}
+        archives[@year] = @archives
+        ctx = {archive_map: archives}
+      else
+        ctx = {archive_map: @archives}
+      # ctx = {}
 
       # extend the template context with the enviroment locals
       env.utils.extend ctx, locals
@@ -50,7 +60,6 @@ module.exports = (env, callback) ->
   # register a generator, 'paginator' here is the content group generated content will belong to
   # i.e. contents._.paginator
   env.registerGenerator 'archive', (contents, callback) ->
-
     articles = env.helpers.getArticles(contents)
 
     month_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -66,8 +75,9 @@ module.exports = (env, callback) ->
     	for month in Object.keys(archives[year])
     		rv[year + '.' + month + '.archive'] = new ArchivePage(year, month, archives[year][month])
 
-    rv['archive.page'] = new ArchiveListing(archives)
+      rv[year + '.archive'] = new ArchiveListing(archives[year], year)
 
+    rv['archive.page'] = new ArchiveListing(archives)
     callback null, rv
 
   callback()

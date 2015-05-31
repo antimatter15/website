@@ -2,6 +2,8 @@ extends layout
 
 block title
   title stuff
+  style.
+    .about { display: block !important; }
 
 block content
   //- p= featured.title
@@ -23,7 +25,12 @@ block content
         //- .caption
         //-   | I don't know if it's possible to specify a caption in markdown
           
-      .text!= typogr(featured.intro).typogrify().replace(/<img .*?>/g, '') 
+      .text
+        != typogr(featured.intro).typogrify().replace(/<\/p>\s*<p>\s*$/, ' ')
+        a(href=featured.url) &nbsp;&nbsp;Read More ❯
+      //- .replace(/<div .*?<\/div>/g, '') 
+
+
 
 
   .splitter
@@ -32,7 +39,7 @@ block content
     //- span(style="font-size: x-small; color: #999") &#9660;
   
   .hand
-    each article in articles.filter(function(e){return e != featured}).slice(0, 6)
+    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden}).slice(0, 6)
       a(href=article.url)
         .thumb
           .caption 

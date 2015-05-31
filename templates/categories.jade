@@ -5,7 +5,7 @@ block title
 
 block content
 	each category in Object.keys(categories)
-		a(href='/category/'+env.helpers.slugify(category))
+		a(href='/category/'+env.helpers.slugify(category)+'/')
 			h2= category
 		ul
 			each article in categories[category]

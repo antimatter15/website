@@ -167,6 +167,7 @@ a.thumb {
 .byline, .subtitle {
 	font-size: @small;
 	font-weight: 400;
+	white-space: nowrap;
 	// padding-left: 5px;
 	color: @gray;
 }
@@ -254,7 +255,12 @@ footer {
 	}
 	article {
 		margin-bottom: @space;
+		line-height: 1.5em;
 	}
+}
+
+article {
+	overflow-y: auto;
 }
 
 .projects {
@@ -268,7 +274,21 @@ footer {
 	}
 }
 
+#content {
+	.post {
 
+		.pic.md {
+			display: none;
+		}
+	}
+	.pic {
+		.caption {
+			font-size: @small;
+			color: @note;
+			text-align: right;
+		}	
+	}
+}
 
 .layout(
 		@sidebar: 250px;
@@ -335,13 +355,28 @@ footer {
 				margin-left: @space / 2;
 				margin-bottom: @space / 2;
 			}
-			.caption {
-				font-size: @small;
-				color: @note;
-				text-align: right;
-			}
 		}
 
+
+		.pic {
+			&.right {
+				float: right;
+				margin-left: @space / 2;
+				margin-bottom: @space / 2;
+				margin-top: @space / 2;
+				margin-right: 0;
+			}
+			&.left {
+				margin-left: 0;
+				margin-bottom: @space / 2;
+				margin-top: @space / 2;
+				margin-right: @space / 2;
+			}
+			img {
+				max-width: 100%;
+			}
+		}
+		
 
 	}
 	
@@ -577,16 +612,20 @@ footer {
 	.spacing(@space);
 
 	.featured {
-		.pic .caption {
-			color: @note;
-			font-size: @small;
-			margin-bottom: @space;
+		img {
+			max-height: 200px;
+			width: auto;
 		}
 	}
 	img {
 		width: 100%;
 	}
-	.archive, .tags {
+	.pic {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.archive, .tags, .about {
 		display: none;
 	}
 

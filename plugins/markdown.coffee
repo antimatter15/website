@@ -114,7 +114,41 @@ parseMarkdownSync = (content, markdown, baseUrl, options) ->
       return code
 
   marked.setOptions options
-  return marked markdown
+  renderer = new marked.Renderer()
+  renderer.image = (href, title, text) ->
+    # this is pretty ugly but it works
+    parts = text.trim().split(",")
+    alt = []
+
+    html = '<img src="' + href + '" '
+    picstyle = ''
+    picclass = ['pic', 'md']
+    if parts.length > 0
+      pstyles = {}
+      for part in parts
+        c = part.toLowerCase().trim()
+        if c == 'right'
+          picclass.push('right')
+        else if c == 'left'
+          picclass.push('left')
+        else if /px$/.test(c)
+          pstyles['width'] = c
+        else
+          alt.push(part)
+
+      picstyle = 'style="' + ("#{k}: #{v}" for k, v of pstyles).join(';') + '" '
+      html += 'alt="' + alt.join(' ').trim() + '" '
+
+    html += '>'
+    caption = ''
+    if title
+      caption = '<div class="caption">' + title + '</div>'
+    html = '<div class="' + picclass.join(' ') + '" ' + picstyle + '>' + html + caption + '</div>'
+
+    return html
+    # return '<img src="' + href + '"> merp' + title + '---' + text
+
+  return marked markdown, { renderer }
 
 module.exports = (env, callback) ->
 
