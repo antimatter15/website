@@ -156,6 +156,9 @@ module.exports = (env, callback) ->
     @property 'title', ->
       @metadata.title or 'Untitled'
 
+    @property 'draft', ->
+      return !(@metadata?.tags and 'draft' not in @metadata.tags)
+
     @property 'date', ->
       new Date(@metadata.date or 0)
 

@@ -294,6 +294,22 @@ article {
 	}
 }
 
+.draft {
+
+	background: rgb(226, 112, 0);
+	padding: 20px;
+	margin-bottom: 20px;
+
+	h2 {
+		color: white;
+		display: inline;
+		margin-right: 10px;
+	}
+	span {
+		color: white;
+	}
+}
+
 .layout(
 		@sidebar: 250px;
 		@width: 1100px;
@@ -359,6 +375,13 @@ article {
 				margin-left: @space / 2;
 				margin-bottom: @space / 2;
 			}
+		}
+
+		.draft {
+			margin: -@space;
+			margin-bottom: @space;
+			padding: @space;
+			padding-bottom: @space;
 		}
 
 

@@ -30,7 +30,7 @@ module.exports = (env, callback) ->
     walk(contents['articles'])
     # articles = contents[options.articles]._.directories.map (item) -> item.index
     # skip articles that does not have a template associated
-    articles = articles.filter (item) -> item && item.template isnt 'none' && (item?.metadata?.tags and 'draft' not in item?.metadata?.tags)
+    articles = articles.filter (item) -> item && item.template isnt 'none' && !item.draft
     # sort article by date
     articles.sort (a, b) -> b.date - a.date
 

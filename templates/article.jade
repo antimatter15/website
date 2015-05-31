@@ -10,6 +10,10 @@ block title
 //- block header
 
 block content
+  if page.draft
+    .draft
+      h2 DRAFT
+      span This post has not yet been published, probably for a good reason.
   //- include author
   //- include tags
   //- div(style="overflow:auto;")
@@ -81,6 +85,16 @@ block content
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 
-block prepend footer
+  hr
   div.nav
-    a(href=contents.index.url) « Full blog
+      a.newer(href='/archive') « Archives
+      a.next(href='/page/1') Latest Posts »
+
+
+
+
+
+
+//- block prepend footer
+//-   div.nav
+//-     a(href=contents.index.url) « Full blog
