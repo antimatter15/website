@@ -276,17 +276,21 @@ article {
 
 #content {
 	.post {
-
 		.pic.md {
 			display: none;
 		}
 	}
 	.pic {
+		clear: both;
 		.caption {
 			font-size: @small;
 			color: @note;
-			text-align: right;
-		}	
+		}
+		&.right {
+			.caption {
+				text-align: right;
+			}
+		}
 	}
 }
 
