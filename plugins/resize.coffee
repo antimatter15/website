@@ -7,15 +7,17 @@ module.exports = (env, callback) ->
   class ScaledImage extends env.ContentPlugin
     ### based on the Static file handler. ###
 
-    constructor: (@filepath, @size = 'medium') ->
+    constructor: (@filepath, @size = 'medium', @width = 500) ->
 
     getView: ->
       return (args..., callback) ->
         # locals, contents etc not used in this plugin
         # console.log @filepath
         try
+          # callback null, fs.createReadStream(@filepath.full)
+          # graphicsmagick is being shitty now
           gm(@filepath.full)
-            .resize(if @size == 'medium' then 500 else 200)
+            .resize(@width + '>')
             .quality(86)
             .background('white')
             .flatten()
@@ -23,6 +25,7 @@ module.exports = (env, callback) ->
             .stream (err, stdout, stderr) ->
               callback null, stdout
         catch error
+
           return callback error
         
 
@@ -45,8 +48,9 @@ module.exports = (env, callback) ->
     images = getImages(contents)
     rv = { }
     for image in images
-      rv[image.relative + '.medium'] = new ScaledImage(image, 'medium')
-      rv[image.relative + '.small'] = new ScaledImage(image, 'small')
+      # rv[image.relative + '.large'] = new ScaledImage(image, 'large', 200)
+      rv[image.relative + '.medium'] = new ScaledImage(image, 'medium', 500)
+      rv[image.relative + '.small'] = new ScaledImage(image, 'small', 200)
 
     callback null, rv
   callback()

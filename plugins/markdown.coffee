@@ -115,12 +115,14 @@ parseMarkdownSync = (content, markdown, baseUrl, options) ->
 
   marked.setOptions options
   renderer = new marked.Renderer()
+  pics = []
   renderer.image = (href, title, text) ->
+    pics.push(href)
     # this is pretty ugly but it works
     parts = text.trim().split(",")
     alt = []
 
-    html = '<img src="' + href + '" '
+    html = '<img '
     picstyle = ''
     picclass = ['pic', 'md']
     if parts.length > 0
@@ -133,11 +135,15 @@ parseMarkdownSync = (content, markdown, baseUrl, options) ->
           picclass.push('left')
         else if /px$/.test(c)
           pstyles['width'] = c
+          if parseInt(c) < 500 and !/\.gif$/i.test(href)
+            href = href.replace(/\.[a-z]+$/g, '') + '-medium.jpg'
         else
           alt.push(part)
 
       picstyle = 'style="' + ("#{k}: #{v}" for k, v of pstyles).join(';') + '" '
       html += 'alt="' + alt.join(' ').trim() + '" '
+    
+    html += ' src="' + href + '" '
 
     html += '>'
     caption = ''
@@ -147,8 +153,8 @@ parseMarkdownSync = (content, markdown, baseUrl, options) ->
 
     return html
     # return '<img src="' + href + '"> merp' + title + '---' + text
-
-  return marked markdown, { renderer }
+  meta = { pics }
+  return [meta, marked(markdown, { renderer })]
 
 module.exports = (env, callback) ->
 
@@ -163,7 +169,21 @@ module.exports = (env, callback) ->
     getHtml: (base=env.config.baseUrl) ->
       ### parse @markdown and return html. also resolves any relative urls to absolute ones ###
       options = env.config.markdown or {}
-      return parseMarkdownSync this, @markdown, @getLocation(base), options
+      [meta, html] = parseMarkdownSync(this, @markdown, @getLocation(base), options)
+      return html
+
+    @property 'picture', 'getPicture'
+    getPicture: (base) ->
+      # html = @getHtml(base)
+      options = env.config.markdown or {}
+      [meta, html] = parseMarkdownSync(this, @markdown, @getLocation(base), options)
+  
+      # matches = html.match(/<img src=".*?"/g)
+      # pics = []
+      # if matches
+      #   pics = (link.match(/<img src="(.*?)"/)[1] for link in matches)
+      # console.log pics
+      return meta.pics?[0]
 
   MarkdownPage.fromFile = (filepath, callback) ->
     async.waterfall [

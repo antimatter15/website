@@ -132,17 +132,6 @@ module.exports = (env, callback) ->
       else
         return html
 
-    @property 'picture', 'getPicture'
-    getPicture: (base) ->
-      html = @getHtml(base)
-      matches = html.match(/<img src=".*?"/g)
-      pics = []
-      if matches
-        pics = (link.match(/<img src="(.*?)"/)[1] for link in matches)
-      # console.log pics
-      return pics?[0]
-
-
 
     @property 'filenameTemplate', 'getFilenameTemplate'
     getFilenameTemplate: ->

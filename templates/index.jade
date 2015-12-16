@@ -1,15 +1,13 @@
 extends layout
 
-block title
-  title stuff
-  style.
-    .about { display: block !important; }
-
 block content
   //- p= featured.title
   //- hr
   //- for article in articles
   //-   p= article.title
+
+  style.
+    .about { display: block !important; }
 
   .featured
     a(href=featured.url)
@@ -27,29 +25,45 @@ block content
           
       .text
         != typogr(featured.intro).typogrify().replace(/<\/p>\s*<p>\s*$/, ' ').replace(/<img .*?>/g, '') 
-        a(href=featured.url) &nbsp;&nbsp;Read More ❯
+        a(href=featured.url) Read More ❯
     
   .splitter
     hr
     a(href="/page/1") posts 
     //- span(style="font-size: x-small; color: #999") &#9660;
-  
-  .hand
-    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden}).slice(0, 6)
-      a(href=article.url)
-        .thumb
-          .caption 
-            h2= article.metadata.short || article.title
-            .sub= article.metadata.caption || article.title
-          if article.picture
-            //- +img(article.picture)
-            +img(article.picture)
-          else
-            //- +img("/img/cat.jpg")
-            +img("/img/cat.jpg")
+
+  .filmstrip
+    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden && e.picture }).slice(0, 8)  
+      a.thumb(href=article.url, title=article.title)
+          +small(article.picture)
+
+  //- .hand
+  //-   each article in articles.filter(function(e){return e != featured && !e.metadata.hidden && e.picture }).slice(0, 6)
+  //-     a(href=article.url)
+  //-       .thumb
+  //-         .caption 
+  //-           h2= article.metadata.short || article.title
+  //-           .sub= article.metadata.caption || article.title
+  //-         if article.picture
+  //-           //- +img(article.picture)
+  //-           +img(article.picture)
+  //-         else
+  //-           //- +img("/img/cat.jpg")
+  //-           +img("/img/cat.jpg")
 
     //- .thumb
     //-     img(src="http://i.imgur.com/fSgnUKW.jpg", style="height: 100%")
+
+  ul.plain-text
+    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden }).slice(0, 12)
+      li
+        a(href=article.url)
+          span.date(title=article.date)= moment.utc(article.date).format('DD MMMM YYYY')
+          h2= article.metadata.short || article.title
+          span= " "
+          span.caption= article.metadata.caption || article.title
+        
+        
 
   .splitter(style="text-align:center")
     hr

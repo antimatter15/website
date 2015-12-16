@@ -2,7 +2,13 @@ mixin img(href)
 	+medium(href)
 
 mixin medium(href)
-	img(src=href.replace(/\.[a-z]+$/g, '') + '-medium.jpg')&attributes(attributes)
+	if href
+		img(src=href.replace(/\.[a-z]+$/g, '') + '-medium.jpg')&attributes(attributes)
+	else
+		+medium("/img/cat.jpg")
 
 mixin small(href)
-	img(src=href.replace(/\.[a-z]+$/g, '') + '-small.jpg')&attributes(attributes)
+	if href
+		img(src=href.replace(/\.[a-z]+$/g, '') + '-small.jpg')&attributes(attributes)
+	else
+		+small("/img/cat.jpg")
