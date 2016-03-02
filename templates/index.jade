@@ -55,7 +55,7 @@ block content
     //-     img(src="http://i.imgur.com/fSgnUKW.jpg", style="height: 100%")
 
   ul.plain-text
-    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden }).slice(0, 12)
+    each article in articles.filter(function(e){return e != featured && !e.metadata.hidden }).slice(0, 6)
       li
         a(href=article.url)
           span.date(title=article.date)= moment.utc(article.date).format('DD MMMM YYYY')

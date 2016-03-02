@@ -30,7 +30,7 @@ body {
   font-family: 'Avenir Next', 'Zombocom', sans-serif;
   font-size: 15px;
   // line-height: 1.52;
-  background-color: @graybar;
+  background-color: #6887A5;
   text-rendering: optimizeLegibility;
   margin: 0;
   font-size: 16px;
@@ -146,7 +146,8 @@ a.thumb {
 
 .logo {
 	font-weight: 400;
-	color: #286AA6;
+	// color: #286AA6;
+	color: white;
 	margin: 0;
 	font-size: 42px;
 	display: inline;
@@ -163,14 +164,21 @@ a.thumb {
 
 .byline {
 	margin-left: -6px;
+	color: #CFDEEC;
+}
+
+.subtitle {
+	color: #8798A9; // bluish
 }
 .byline, .subtitle {
 	font-size: @small;
 	font-weight: 400;
 	white-space: nowrap;
 	// padding-left: 5px;
-	color: @gray;
+	// color: @gray;
 }
+
+
 
 
 .featured {
@@ -193,22 +201,27 @@ header.top {
 }
 
 .graybar {
-	background: @graybar;
+	background: #6887A5;
+	// background: @graybar;
 	// background: url(/888496-sky-wallpaper.jpg);
 	background-attachment: fixed;
 	top: 0;
 	overflow-y: auto;
 	// background: url(http://subtlepatterns.com/patterns/fabric_of_squares_gray.png);
 	&.top {
-		border-bottom: 1px solid @rule;
+		// border-bottom: 1px solid @rule;
 	}
 	&.bottom {
-		border-top: 1px solid @rule;	
+		// border-top: 1px solid @rule;	
 	}
 }
 
 footer {
 	font-size: 10px;
+	color: white;
+	a {
+		color: #FFC400;
+	}
 }
 
 
@@ -336,7 +349,7 @@ article {
     }
     li {
     	clear: both;
-    	margin-bottom: 2px;
+    	margin-bottom: 8px;
     }
 }
 .layout(
@@ -383,7 +396,10 @@ article {
 		// padding-left: @space;
 		padding: @space;
 		padding-top: @space - 7px;
-		border: 1px solid @rule;
+		// border: 1px solid @rule;
+		border-radius: 3px;
+		box-shadow: 0 0 10px rgba(0,0,0,0.15);
+
 		margin-top: -60px;
 		background: white;
 		word-wrap: break-word;
